@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', HomeController::class)->name('home');
+Route::get('/all-boeken', HomeController::class)->name('alle-boeken');
+Route::get('/genres', HomeController::class)->name('genres');
+Route::get('/auteurs', HomeController::class)->name('auteurs');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
