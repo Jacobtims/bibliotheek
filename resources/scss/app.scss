@@ -5,3 +5,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+// Alphine.js x-cloak
+[x-cloak] { display: none !important; }

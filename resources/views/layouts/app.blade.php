@@ -13,7 +13,7 @@
         <!-- Scripts -->
         @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-background text-basis min-h-screen flex flex-col">
+    <body class="font-sans antialiased bg-background text-basis min-h-screen w-full flex flex-col">
         @include('layouts.navigation')
 
         <div class="flex-1">
