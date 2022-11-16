@@ -41,14 +41,21 @@
                     </a>
                 @endguest
                 @auth()
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); this.closest('form').submit();"
+                    <div class="flex flex-col gap-6">
+                        <a href="{{ route('dashboard') }}"
                            class="py-2.5 px-6 text-white font-medium rounded-full hover:bg-white hover:text-primary transition ease-in-out duration-150">
-                            Uitloggen
+                            Dashboard
                         </a>
-                    </form>
+                        <!-- Logout button -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); this.closest('form').submit();"
+                               class="py-2.5 px-6 text-white font-medium rounded-full hover:bg-white hover:text-primary transition ease-in-out duration-150">
+                                Uitloggen
+                            </a>
+                        </form>
+                    </div>
                 @endauth
             </div>
         </nav>

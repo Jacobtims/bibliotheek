@@ -34,15 +34,21 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <x-dropdown-link :href="route('logout')"
-                                             onclick="event.preventDefault();
-                                         this.closest('form').submit();">
-                                Uitloggen
+                        <div>
+                            <x-dropdown-link :href="route('dashboard')">
+                                Dashboard
                             </x-dropdown-link>
-                        </form>
+                            <hr class="text-light my-1"/>
+                            <!-- Logout button -->
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <x-dropdown-link :href="route('logout')"
+                                                 onclick="event.preventDefault();
+                                         this.closest('form').submit();">
+                                    Uitloggen
+                                </x-dropdown-link>
+                            </form>
+                        </div>
                     </x-slot>
                 </x-dropdown>
             @endauth
