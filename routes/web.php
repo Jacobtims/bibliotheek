@@ -19,6 +19,12 @@ Route::get('/all-boeken', HomeController::class)->name('alle-boeken');
 Route::get('/genres', HomeController::class)->name('genres');
 Route::get('/auteurs', HomeController::class)->name('auteurs');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
+//        Route::resource('employees', );
+    });
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

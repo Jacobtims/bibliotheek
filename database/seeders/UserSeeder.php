@@ -26,6 +26,9 @@ class UserSeeder extends Seeder
             'email' => 'personeel@test.com',
         ]);
         $personeel->assignRole('Personeel');
+        $personeel->employee()->create([
+            'hired_at' => today(),
+        ]);
 
         $lezer = User::factory()->create([
             'name' => 'Lezer',
