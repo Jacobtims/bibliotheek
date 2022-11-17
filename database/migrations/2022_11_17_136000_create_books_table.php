@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('author_id')->constrained();
             $table->foreignId('genre_id')->constrained();
             $table->date('purchased_at');
+            $table->string('image');
             $table->timestamps();
         });
     }
