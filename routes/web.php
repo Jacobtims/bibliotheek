@@ -20,8 +20,8 @@ Route::get('/genres', HomeController::class)->name('genres');
 Route::get('/auteurs', HomeController::class)->name('auteurs');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
-//        Route::resource('employees', );
+    Route::middleware('role:Admin')->group(function () {
+        Route::resource('employees', \App\Http\Controllers\EmployeeController::class);
     });
 });
 

@@ -25,7 +25,8 @@ module.exports = {
                 'green': '#18EB92',
                 'red': '#EE4040',
                 'border': '#E4E4E4',
-                'background': '#F4F4F4'
+                'background': '#F4F4F4',
+                'table-row': '#F6F8FA'
             }
         },
     },
