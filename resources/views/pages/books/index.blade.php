@@ -32,9 +32,9 @@
                         <td class="py-4">{{ $book->genre->name }}</td>
                         <td class="py-4 pr-5">
                             <div class="flex items-center justify-end space-x-1">
-                                <button>
+                                <a href="{{ route('books.edit', $book->id) }}">
                                     <span class="material-symbols-outlined">edit_square</span>
-                                </button>
+                                </a>
                                 <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="inline-flex">
                                     @csrf @method('DELETE')
                                     <button>

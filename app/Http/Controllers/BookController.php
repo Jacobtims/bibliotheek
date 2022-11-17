@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\BookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
@@ -25,7 +25,7 @@ class BookController extends Controller
         return view('pages.books.create', compact('authors', 'genres'));
     }
 
-    public function store(StoreBookRequest $request)
+    public function store(BookRequest $request)
     {
         Book::create($request->validated());
 
@@ -34,12 +34,17 @@ class BookController extends Controller
 
     public function edit(Book $book)
     {
-        //
+        $authors = Author::all();
+        $genres = Genre::all();
+
+        return view('pages.books.edit', compact('authors', 'genres', 'book'));
     }
 
-    public function update(Request $request, Book $book)
+    public function update(BookRequest $request, Book $book)
     {
-        //
+        $book->update($request->validated());
+
+        return redirect()->route('books.index')->with('success', 'Boek succesvol aangepast!');
     }
 
     public function destroy(Book $book)
