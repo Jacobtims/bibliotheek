@@ -36,12 +36,24 @@ class EmployeeController extends Controller
 
     public function edit(User $user)
     {
-        //
+        $user->load('employee');
+
+        return view('pages.employees.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
     {
-        //
+        $user->update($request->only(['name', 'email']));
+        $user->employee()->update(['hired_at' => $request->hired_at]);
+
+        // Only update password if set
+        if ($request->filled('password')) {
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
+        }
+
+        return redirect()->route('employees.index')->with('success', 'Personeelslid succesvol aangepast!');
     }
 
     public function destroy(User $user)

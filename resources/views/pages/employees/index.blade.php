@@ -30,10 +30,10 @@
                         <td class="py-4">{{ \Carbon\Carbon::parse($user->employee->hired_at)->translatedFormat('d F Y') }}</td>
                         <td class="py-4 pr-5">
                             <div class="flex items-center justify-end space-x-1">
-                                <a href="{{ route('books.edit', $user->id) }}">
+                                <a href="{{ route('employees.edit', $user->id) }}">
                                     <span class="material-symbols-outlined">edit_square</span>
                                 </a>
-                                <form action="{{ route('books.destroy', $user->id) }}" method="POST" class="inline-flex">
+                                <form action="{{ route('employees.destroy', $user->id) }}" method="POST" class="inline-flex">
                                     @csrf @method('DELETE')
                                     <button>
                                         <span class="material-symbols-outlined mt-1">delete</span>
