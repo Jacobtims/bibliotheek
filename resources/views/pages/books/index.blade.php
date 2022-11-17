@@ -31,12 +31,17 @@
                         <td class="py-4">{{ $book->author->name }}</td>
                         <td class="py-4">{{ $book->genre->name }}</td>
                         <td class="py-4 pr-5">
-                            <button>
-                                <span class="material-symbols-outlined">edit_square</span>
-                            </button>
-                            <button>
-                                <span class="material-symbols-outlined">delete</span>
-                            </button>
+                            <div class="flex items-center justify-end space-x-1">
+                                <button>
+                                    <span class="material-symbols-outlined">edit_square</span>
+                                </button>
+                                <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="inline-flex">
+                                    @csrf @method('DELETE')
+                                    <button>
+                                        <span class="material-symbols-outlined mt-1">delete</span>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
