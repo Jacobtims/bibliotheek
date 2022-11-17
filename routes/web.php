@@ -22,6 +22,7 @@ Route::get('/auteurs', HomeController::class)->name('auteurs');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:Admin')->group(function () {
         Route::resource('employees', \App\Http\Controllers\EmployeeController::class);
+        Route::resource('books', \App\Http\Controllers\BookController::class);
     });
 });
 
