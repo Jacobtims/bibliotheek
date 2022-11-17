@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Employee::class);
     }
+
+    public function reader(): HasOne
+    {
+        return $this->hasOne(Reader::class);
+    }
 }
