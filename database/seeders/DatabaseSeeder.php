@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +19,13 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
             UserSeeder::class,
         ]);
+
+        // If environment is local
+        if (App::environment('local')) {
+            $this->call([
+                EmployeeSeeder::class,
+                ReaderSeeder::class,
+            ]);
+        }
     }
 }
