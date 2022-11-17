@@ -58,6 +58,9 @@ class EmployeeController extends Controller
 
     public function destroy(User $user)
     {
-        //
+        $user->employee()->delete();
+        $user->delete();
+
+        return back()->with('success', 'Personeelslid succesvol verwijderd!');
     }
 }
