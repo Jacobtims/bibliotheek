@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookRequest;
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -16,18 +19,17 @@ class BookController extends Controller
 
     public function create()
     {
-        return view('pages.books.create');
+        $authors = Author::all();
+        $genres = Genre::all();
+
+        return view('pages.books.create', compact('authors', 'genres'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        //
+        Book::create($request->validated());
+
+        return redirect()->route('books.index')->with('success', 'Boek succesvol aangemaakt!');
     }
 
     /**

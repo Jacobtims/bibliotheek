@@ -1,10 +1,17 @@
 <x-app-layout>
     <div class="py-12">
-        <x-card class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h1 class="text-2xl font-semibold mb-7">
-                <a href="{{ route('dashboard') }}" class="underline">Dashboard</a> /
-                Boeken
-            </h1>
+        <x-card class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6 lg:py-8">
+            <div class="flex items-center justify-between mb-7">
+                <h1 class="text-2xl font-semibold">
+                    <a href="{{ route('dashboard') }}" class="underline">Dashboard</a> /
+                    Boeken
+                </h1>
+                <a href="{{ route('books.create') }}">
+                    <x-buttons.green-button>
+                        Nieuw boek
+                    </x-buttons.green-button>
+                </a>
+            </div>
 
             <table class="table-auto w-full">
                 <thead class="text-left text-sm text-gray font-semibold uppercase bg-table-row">

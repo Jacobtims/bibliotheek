@@ -20,13 +20,20 @@ module.exports = {
                 'primary-light': '#A3ECF7',
                 'basis': '#0F172A',
                 'gray': '#696969',
-                'gray-100': '#f3f4f6',
                 'light': '#B0AEAE',
                 'green': '#18EB92',
+                'green-dark': '#0bd982',
                 'red': '#EE4040',
                 'border': '#E4E4E4',
                 'background': '#F4F4F4',
-                'table-row': '#F6F8FA'
+                'table-row': '#F6F8FA',
+
+                'gray-100': '#f3f4f6',
+                'red-600': '#dc2626',
+                'red-100': '#fee2e2',
+                'red-700': '#b91c1c',
+                'green-100': '#dcfce7',
+                'green-700': '#15803d',
             }
         },
     },

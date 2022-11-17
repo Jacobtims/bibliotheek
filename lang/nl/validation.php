@@ -165,6 +165,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'title' => 'titel',
+        'image' => 'afbeelding url',
+        'author_id' => 'auteur',
+        'genre_id' => 'genre',
+        'purchased_at' => 'gekocht op'
+    ],
 
 ];
