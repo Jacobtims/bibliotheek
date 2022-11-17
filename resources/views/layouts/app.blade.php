@@ -18,6 +18,8 @@
 
         <div class="flex-1">
             <main>
+                @include('layouts.flash-messages')
+
                 {{ $slot }}
             </main>
         </div>
