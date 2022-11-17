@@ -170,7 +170,12 @@ return [
         'image' => 'afbeelding url',
         'author_id' => 'auteur',
         'genre_id' => 'genre',
-        'purchased_at' => 'gekocht op'
+        'purchased_at' => 'gekocht op',
+        'name' => 'naam',
+        'email' => 'e-mailadres',
+        'password' => 'wachtwoord',
+        'password_confirmation' => 'bevestig wachtwoord',
+        'hired_at' => 'aangenomen op'
     ],
 
 ];

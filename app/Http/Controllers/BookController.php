@@ -6,7 +6,6 @@ use App\Http\Requests\BookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
-use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
