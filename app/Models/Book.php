@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class Book extends Model
 {
@@ -52,10 +53,15 @@ class Book extends Model
         return $this->reservedBooks->contains('user_id', $user->id);
     }
 
-//    protected function isReserved(): Attribute
-//    {
-//        return Attribute::make(
-//            get: fn ($value) => $this->reservedBooks->contains('user_id', auth()->id()),
-//        );
-//    }
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->reservedBooks->count() === 1) {
+                    return '<span class="text-gray">Gereserveerd</span>';
+                }
+                return '<span class="text-green-700">Beschikbaar</span>';
+            }
+        );
+    }
 }

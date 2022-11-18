@@ -66,7 +66,7 @@
                                 {{ $copy->isbn }}
                             </td>
                             <td class="py-4">
-                                <span class="text-green-700">Beschikbaar</span>
+                                {!! $copy->status !!}
                             </td>
                             <td class="py-4 pr-5">
                                 Beeckberghen

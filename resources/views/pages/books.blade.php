@@ -81,7 +81,7 @@
                             </a>
                         </td>
                         <td class="py-4 pr-5">
-                            <span class="text-green-700">Beschikbaar</span>
+                            {!! $book->status !!}
                         </td>
                     </tr>
                 @empty
