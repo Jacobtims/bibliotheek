@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\ReservedBook;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -45,5 +46,23 @@ class BookController extends Controller
         $copies = Book::whereIsbn($book->isbn)->get();
 
         return view('pages.book', compact('book', 'copies'));
+    }
+
+    public function reserve(Book $book)
+    {
+        ReservedBook::create([
+            'user_id' => auth()->id(),
+            'book_id' => $book->id
+        ]);
+
+        return back()->with('success', 'Boek succesvol gereserveerd!');
+    }
+
+    public function cancelReservation(Book $book)
+    {
+        $reservedBook = ReservedBook::where(['user_id' => auth()->id(), 'book_id' => $book->id])->firstOrFail();
+        $reservedBook->delete();
+
+        return back()->with('success', 'Boek reservering succesvol geannuleerd!');
     }
 }

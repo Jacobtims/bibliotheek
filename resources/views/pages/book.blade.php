@@ -31,9 +31,21 @@
                         </tbody>
                     </table>
 
-                    <x-buttons.primary-button>
-                        Reserveer
-                    </x-buttons.primary-button>
+                    @if(!$book->isReservedBy(auth()->user()))
+                        <form action="{{ route('books.reserve', $book->id) }}" method="POST">
+                            @csrf
+                            <x-buttons.primary-button>
+                                Reserveer
+                            </x-buttons.primary-button>
+                        </form>
+                    @else
+                        <form action="{{ route('books.cancel-reservation', $book->id) }}" method="POST">
+                            @csrf
+                            <x-buttons.gray-button>
+                                Annuleer reservering
+                            </x-buttons.gray-button>
+                        </form>
+                    @endif
                 </div>
             </div>
 

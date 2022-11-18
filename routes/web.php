@@ -22,6 +22,9 @@ Route::get('/books', [\App\Http\Controllers\BookController::class, 'index'])->na
 Route::get('/books/{book}', [\App\Http\Controllers\BookController::class, 'show'])->name('books.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/books/reserve/{book}', [\App\Http\Controllers\BookController::class, 'reserve'])->name('books.reserve')->middleware('role:Lezer');
+    Route::post('/books/cancel-reservation/{book}', [\App\Http\Controllers\BookController::class, 'cancelReservation'])->name('books.cancel-reservation')->middleware('role:Lezer');
+
     Route::get('/dashboard', \App\Http\Controllers\Dashboard\DashboardController::class)->name('dashboard');
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {

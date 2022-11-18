@@ -29,6 +29,9 @@ module.exports = {
                 'table-row': '#F6F8FA',
 
                 'gray-100': '#f3f4f6',
+                'gray-200': '#e5e7eb',
+                'gray-300': '#d1d5db',
+                'gray-400': '#9ca3af',
                 'red-600': '#dc2626',
                 'red-100': '#fee2e2',
                 'red-700': '#b91c1c',
