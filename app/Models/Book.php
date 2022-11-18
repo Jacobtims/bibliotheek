@@ -32,6 +32,16 @@ class Book extends Model
         return $this->belongsTo(Genre::class);
     }
 
+    public function reservedBooks(): HasMany
+    {
+        return $this->hasMany(ReservedBook::class);
+    }
+
+    public function lentBooks(): HasMany
+    {
+        return $this->hasMany(LentBooks::class)->whereNull('returned_at');
+    }
+
     public function scopeSearch($query, $searchTerm)
     {
         if (!empty($searchTerm)) {
@@ -41,11 +51,6 @@ class Book extends Model
         }
 
         return $query;
-    }
-
-    public function reservedBooks(): HasMany
-    {
-        return $this->hasMany(ReservedBook::class);
     }
 
     public function isReservedBy(User $user)
@@ -59,6 +64,8 @@ class Book extends Model
             get: function () {
                 if ($this->reservedBooks->count() === 1) {
                     return '<span class="text-gray">Gereserveerd</span>';
+                } elseif ($this->lentBooks->count() === 1) {
+                    return '<span class="text-red">Uitgeleend</span>';
                 }
                 return '<span class="text-green-700">Beschikbaar</span>';
             }
