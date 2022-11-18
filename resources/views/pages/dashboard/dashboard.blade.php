@@ -19,9 +19,9 @@
             @endrole()
             @role('Admin')
                 <!-- Personeel gegevens -->
-                <x-icon-card icon="group" title="Personeel gegevens" :url="route('employees.index')"/>
+                <x-icon-card icon="group" title="Personeel gegevens" :url="route('dashboard.employees.index')"/>
                 <!-- Boeken -->
-                <x-icon-card icon="menu_book" title="Boeken" :url="route('books.index')"/>
+                <x-icon-card icon="menu_book" title="Boeken" :url="route('dashboard.books.index')"/>
                 <!-- Rollen en rechten -->
                 <x-icon-card icon="manage_accounts" title="Rollen en rechten" :url="route('dashboard')"/>
             @endrole()

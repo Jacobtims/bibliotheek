@@ -6,7 +6,7 @@
                     <a href="{{ route('dashboard') }}" class="underline">Dashboard</a> /
                     Boeken
                 </h1>
-                <a href="{{ route('books.create') }}">
+                <a href="{{ route('dashboard.books.create') }}">
                     <x-buttons.green-button>
                         Nieuw boek
                     </x-buttons.green-button>
@@ -32,10 +32,10 @@
                         <td class="py-4">{{ $book->genre->name }}</td>
                         <td class="py-4 pr-5">
                             <div class="flex items-center justify-end space-x-1">
-                                <a href="{{ route('books.edit', $book->id) }}">
+                                <a href="{{ route('dashboard.books.edit', $book->id) }}">
                                     <span class="material-symbols-outlined">edit_square</span>
                                 </a>
-                                <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="inline-flex">
+                                <form action="{{ route('dashboard.books.destroy', $book->id) }}" method="POST" class="inline-flex">
                                     @csrf @method('DELETE')
                                     <button>
                                         <span class="material-symbols-outlined mt-1">delete</span>

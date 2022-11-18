@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\BookRequest;
 use App\Models\Author;
 use App\Models\Book;
@@ -13,7 +14,7 @@ class BookController extends Controller
     {
         $books = Book::with(['author', 'genre'])->paginate(10);
 
-        return view('pages.books.index', compact('books'));
+        return view('pages.dashboard.books.index', compact('books'));
     }
 
     public function create()
@@ -21,14 +22,14 @@ class BookController extends Controller
         $authors = Author::all();
         $genres = Genre::all();
 
-        return view('pages.books.create', compact('authors', 'genres'));
+        return view('pages.dashboard.books.create', compact('authors', 'genres'));
     }
 
     public function store(BookRequest $request)
     {
         Book::create($request->validated());
 
-        return redirect()->route('books.index')->with('success', 'Boek succesvol aangemaakt!');
+        return redirect()->route('dashboard.books.index')->with('success', 'Boek succesvol aangemaakt!');
     }
 
     public function edit(Book $book)
@@ -36,14 +37,14 @@ class BookController extends Controller
         $authors = Author::all();
         $genres = Genre::all();
 
-        return view('pages.books.edit', compact('authors', 'genres', 'book'));
+        return view('pages.dashboard.books.edit', compact('authors', 'genres', 'book'));
     }
 
     public function update(BookRequest $request, Book $book)
     {
         $book->update($request->validated());
 
-        return redirect()->route('books.index')->with('success', 'Boek succesvol aangepast!');
+        return redirect()->route('dashboard.books.index')->with('success', 'Boek succesvol aangepast!');
     }
 
     public function destroy(Book $book)

@@ -6,7 +6,7 @@
                     <a href="{{ route('dashboard') }}" class="underline">Dashboard</a> /
                     Personeel gegevens
                 </h1>
-                <a href="{{ route('employees.create') }}">
+                <a href="{{ route('dashboard.employees.create') }}">
                     <x-buttons.green-button>
                         Nieuw personeelslid
                     </x-buttons.green-button>
@@ -30,10 +30,10 @@
                         <td class="py-4">{{ \Carbon\Carbon::parse($user->employee->hired_at)->translatedFormat('d F Y') }}</td>
                         <td class="py-4 pr-5">
                             <div class="flex items-center justify-end space-x-1">
-                                <a href="{{ route('employees.edit', $user->id) }}">
+                                <a href="{{ route('dashboard.employees.edit', $user->id) }}">
                                     <span class="material-symbols-outlined">edit_square</span>
                                 </a>
-                                <form action="{{ route('employees.destroy', $user->id) }}" method="POST" class="inline-flex">
+                                <form action="{{ route('dashboard.employees.destroy', $user->id) }}" method="POST" class="inline-flex">
                                     @csrf @method('DELETE')
                                     <button>
                                         <span class="material-symbols-outlined mt-1">delete</span>

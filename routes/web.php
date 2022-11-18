@@ -20,14 +20,14 @@ Route::get('/genres', HomeController::class)->name('genres');
 Route::get('/auteurs', HomeController::class)->name('auteurs');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::middleware('role:Admin')->group(function () {
-        Route::resource('employees', \App\Http\Controllers\EmployeeController::class)->parameters(['employees' => 'user'])->except('show');
-        Route::resource('books', \App\Http\Controllers\BookController::class)->except('show');
+    Route::get('/dashboard', \App\Http\Controllers\Dashboard\DashboardController::class)->name('dashboard');
+
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::middleware('role:Admin')->group(function () {
+            Route::resource('employees', \App\Http\Controllers\Dashboard\EmployeeController::class)->parameters(['employees' => 'user'])->except('show');
+            Route::resource('books', \App\Http\Controllers\Dashboard\BookController::class)->except('show');
+        });
     });
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

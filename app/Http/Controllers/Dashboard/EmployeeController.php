@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,12 +14,12 @@ class EmployeeController extends Controller
     {
         $users = User::role('Personeel')->withWhereHas('employee')->paginate(10);
 
-        return view('pages.employees.index', compact('users'));
+        return view('pages.dashboard.employees.index', compact('users'));
     }
 
     public function create()
     {
-        return view('pages.employees.create');
+        return view('pages.dashboard.employees.create');
     }
 
     public function store(StoreEmployeeRequest $request)
@@ -31,14 +32,14 @@ class EmployeeController extends Controller
         $user->employee()->create(['hired_at' => $request->hired_at]);
         $user->assignRole('Personeel');
 
-        return redirect()->route('employees.index')->with('success', 'Personeelslid succesvol aangemaakt!');
+        return redirect()->route('dashboard.employees.index')->with('success', 'Personeelslid succesvol aangemaakt!');
     }
 
     public function edit(User $user)
     {
         $user->load('employee');
 
-        return view('pages.employees.edit', compact('user'));
+        return view('pages.dashboard.employees.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
@@ -53,7 +54,7 @@ class EmployeeController extends Controller
             ]);
         }
 
-        return redirect()->route('employees.index')->with('success', 'Personeelslid succesvol aangepast!');
+        return redirect()->route('dashboard.employees.index')->with('success', 'Personeelslid succesvol aangepast!');
     }
 
     public function destroy(User $user)
