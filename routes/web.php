@@ -19,7 +19,7 @@ Route::get('/genres', HomeController::class)->name('genres');
 Route::get('/auteurs', HomeController::class)->name('auteurs');
 
 Route::get('/books', [\App\Http\Controllers\BookController::class, 'index'])->name('books.index');
-Route::get('/books/{book}', [\App\Http\Controllers\BookController::class, 'index'])->name('books.show');
+Route::get('/books/{book}', [\App\Http\Controllers\BookController::class, 'show'])->name('books.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', \App\Http\Controllers\Dashboard\DashboardController::class)->name('dashboard');

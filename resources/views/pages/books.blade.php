@@ -67,14 +67,18 @@
                 </thead>
                 <tbody class="font-medium">
                 @forelse($books as $book)
-                    <tr class="even:bg-table-row align-top" @click="window.location.href = '{{ route('books.show', $book->id) }}'">
+                    <tr class="even:bg-table-row align-top">
                         <td class="py-4 pl-5">
-                            <img src="{{ $book->image }}" class="w-20 cursor-pointer"
-                                 onerror="this.onerror = null; this.src = '/storage/images/no-image.png'"/>
+                            <a href="{{ route('books.show', $book->id) }}">
+                                <img src="{{ $book->image }}" class="w-20"
+                                     onerror="this.onerror = null; this.src = '/storage/images/no-image.png'"/>
+                            </a>
                         </td>
                         <td class="py-4">
-                            <h1 class="text-lg font-semibold cursor-pointer">{{ $book->title }}</h1>
-                            <h2 class="text-light cursor-pointer">{{ $book->author->name }}</h2>
+                            <a href="{{ route('books.show', $book->id) }}">
+                                <h1 class="text-lg font-semibold">{{ $book->title }}</h1>
+                                <h2 class="text-light">{{ $book->author->name }}</h2>
+                            </a>
                         </td>
                         <td class="py-4 pr-5">
                             <span class="text-green-700">Beschikbaar</span>

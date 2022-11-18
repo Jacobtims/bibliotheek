@@ -37,4 +37,13 @@ class BookController extends Controller
 
         return view('pages.books', compact('books', 'authors', 'genres'));
     }
+
+    public function show(Book $book)
+    {
+        $book->load(['author', 'genre']);
+
+        $copies = Book::whereIsbn($book->isbn)->get();
+
+        return view('pages.book', compact('book', 'copies'));
+    }
 }
