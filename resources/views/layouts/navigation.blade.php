@@ -66,7 +66,7 @@
             <x-navbar-item route="home">
                 Home
             </x-navbar-item>
-            <x-navbar-item route="alle-boeken">
+            <x-navbar-item route="books.index">
                 Alle boeken
             </x-navbar-item>
             <x-navbar-item route="genres">

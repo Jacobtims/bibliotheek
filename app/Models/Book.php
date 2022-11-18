@@ -28,4 +28,15 @@ class Book extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+
+    public function scopeSearch($query, $searchTerm)
+    {
+        if (!empty($searchTerm)) {
+            return $query
+                ->where('title', 'LIKE', '%' . $searchTerm . '%')
+                ->orWhere('isbn', 'LIKE', '%' . $searchTerm . '%');
+        }
+
+        return $query;
+    }
 }
