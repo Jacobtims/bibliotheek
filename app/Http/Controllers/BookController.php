@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\LentBooks;
 use App\Models\ReservedBook;
 use Illuminate\Http\Request;
 
@@ -64,5 +65,12 @@ class BookController extends Controller
         $reservedBook->delete();
 
         return back()->with('success', 'Boek reservering succesvol geannuleerd!');
+    }
+
+    public function lentOut()
+    {
+        $lentBooks = LentBooks::whereUserId(auth()->id())->with('book')->paginate();
+
+        return view('pages.dashboard.lent-out', compact('lentBooks'));
     }
 }
