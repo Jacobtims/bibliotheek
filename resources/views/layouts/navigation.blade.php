@@ -7,8 +7,13 @@
 
         <!-- Search field -->
         <div class="hidden md:block relative w-1/3">
-            <input type="text" class="block w-full py-2.5 px-5 pr-14 border-2 border-primary rounded-2xl placeholder-gray focus:border-primary focus:ring-0" placeholder="Zoek voor een boek"/>
-            <button type="submit" class="absolute top-0 right-0 h-full px-3 inline-flex items-center text-white bg-primary rounded-r-2xl hover:bg-primary-dark"><span class="material-symbols-outlined">search</span></button>
+            <form action="{{ route('books.index') }}" method="GET">
+                <input class="block w-full py-2.5 px-5 pr-14 border-2 border-primary rounded-2xl placeholder-gray focus:border-primary focus:ring-0"
+                       type="text" name="search" placeholder="Zoek voor een boek" value="{{ request('search') }}"/>
+                <button type="submit" class="absolute top-0 right-0 h-full px-3 inline-flex items-center text-white bg-primary rounded-r-2xl hover:bg-primary-dark">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </form>
         </div>
 
         <div class="hidden md:block w-1/3">
