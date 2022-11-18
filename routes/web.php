@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,16 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', HomeController::class)->name('home');
-Route::get('/genres', HomeController::class)->name('genres');
-Route::get('/auteurs', HomeController::class)->name('auteurs');
+Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
+Route::get('/genres', \App\Http\Controllers\HomeController::class)->name('genres');
+Route::get('/auteurs', \App\Http\Controllers\HomeController::class)->name('auteurs');
 
 Route::get('/books', [\App\Http\Controllers\BookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [\App\Http\Controllers\BookController::class, 'show'])->name('books.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::post('/books/reserve/{book}', [\App\Http\Controllers\BookController::class, 'reserve'])->name('books.reserve')->middleware('role:Lezer');
-    Route::post('/books/cancel-reservation/{book}', [\App\Http\Controllers\BookController::class, 'cancelReservation'])->name('books.cancel-reservation')->middleware('role:Lezer');
+    Route::middleware('role:Lezer')->group(function () {
+        Route::post('/books/reserve/{book}', [\App\Http\Controllers\BookController::class, 'reserve'])->name('books.reserve');
+        Route::post('/books/cancel-reservation/{book}', [\App\Http\Controllers\BookController::class, 'cancelReservation'])->name('books.cancel-reservation');
+        Route::get('/books/lent-out', [\App\Http\Controllers\BookController::class, 'reserved'])->name('books.reserved');
+    });
 
     Route::get('/dashboard', \App\Http\Controllers\Dashboard\DashboardController::class)->name('dashboard');
 

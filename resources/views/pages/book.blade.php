@@ -2,7 +2,7 @@
     <div class="py-12 max-w-7xl mx-auto">
         <!-- Filters -->
         <x-card class="h-max sm:px-6 lg:px-8 py-6 lg:py-8">
-            <div class="flex gap-6 mb-12">
+            <div class="flex flex-col md:flex-row gap-6 mb-8 md:mb-12">
                 <div>
                     <img src="{{ $book->image }}" style="width: 256px;"
                          onerror="this.onerror = null; this.src = '/storage/images/no-image.png'"/>
