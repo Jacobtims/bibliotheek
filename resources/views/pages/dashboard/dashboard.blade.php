@@ -11,9 +11,7 @@
                 <!-- Boek uitlenen -->
                 <x-icon-card icon="library_books" title="Boek uitlenen" :url="route('dashboard.lend-out')"/>
                 <!-- Boek verlengen -->
-                <x-icon-card icon="input" title="Boek verlengen" :url="route('dashboard')"/>
-                <!-- Boek verlengen -->
-                <x-icon-card icon="input" title="Boek verlengen" :url="route('dashboard')"/>
+                <x-icon-card icon="input" title="Boek verlengen" :url="route('dashboard.extend')"/>
                 <!-- Klant gegevens -->
                 <x-icon-card icon="group" title="Klant gegevens" :url="route('dashboard')"/>
             @endrole()

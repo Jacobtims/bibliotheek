@@ -33,7 +33,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::middleware('role:Personeel')->group(function () {
             Route::get('/lend-out', [\App\Http\Controllers\Dashboard\BookController::class, 'lendOut'])->name('lend-out');
-            Route::post('/lend-outs', [\App\Http\Controllers\Dashboard\BookController::class, 'lendOutBook'])->name('lend-out-book');
+            Route::post('/lend-out', [\App\Http\Controllers\Dashboard\BookController::class, 'lendOutBook'])->name('lend-out-book');
+            Route::get('/extend', [\App\Http\Controllers\Dashboard\BookController::class, 'extend'])->name('extend');
+            Route::post('/extend', [\App\Http\Controllers\Dashboard\BookController::class, 'extendBook'])->name('extend-book');
         });
         Route::middleware('role:Admin')->group(function () {
             Route::resource('employees', \App\Http\Controllers\Dashboard\EmployeeController::class)->parameters(['employees' => 'user'])->except('show');

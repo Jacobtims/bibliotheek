@@ -10,6 +10,7 @@ use App\Models\Genre;
 use App\Models\LentBook;
 use App\Models\LentBooks;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -80,5 +81,34 @@ class BookController extends Controller
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Boek succesvol uitgeleend!');
+    }
+
+    public function extend()
+    {
+        $users = User::role('Lezer')->withWhereHas('reader')->get(['id', 'name']);
+        $books = Book::get(['id', 'title'])->where('status', 'lent');
+
+        return view('pages.dashboard.books.extend', compact('users', 'books'));
+    }
+
+    public function extendBook(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
+            'book_id' => ['required', 'exists:books,id']
+        ]);
+
+        $lentBook = LentBook::whereUserId($request->user_id)->whereBookId($request->book_id)->first();
+
+        // If book isn't lend by this reader
+        if (!$lentBook) {
+            return back()->with('error', 'Deze lezer heeft dit boek niet uitgeleend!');
+        }
+
+        // Increment time extended
+        $lentBook->increment('times_extended', 1);
+        $date = Carbon::parse($lentBook->lent_until)->translatedFormat('d F Y');
+
+        return redirect()->route('dashboard')->with('success', 'Boek succesvol verlengd t/m ' . $date . '!');
     }
 }
