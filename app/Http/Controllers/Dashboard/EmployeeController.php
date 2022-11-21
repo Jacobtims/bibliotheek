@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -42,7 +43,7 @@ class EmployeeController extends Controller
         return view('pages.dashboard.employees.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateEmployeeRequest $request, User $user)
     {
         $user->update($request->only(['name', 'email']));
         $user->employee()->update(['hired_at' => $request->hired_at]);

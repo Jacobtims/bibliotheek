@@ -26,8 +26,8 @@ class UpdateEmployeeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['sometimes', 'confirmed', Password::defaults()],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$this->user->id],
+            'password' => ['nullable', 'confirmed', Password::defaults()],
             'hired_at' => ['required', 'date']
         ];
     }
