@@ -37,7 +37,8 @@
                         </td>
                         <td class="py-4 pr-5">
                             <div class="flex items-center justify-end space-x-1">
-                                <form action="" method="POST" class="inline-flex">
+                                <form action="{{ route('dashboard.books.extend', $lentBook->book_id) }}" method="POST"
+                                      class="inline-flex">
                                     @csrf
                                     <x-buttons.primary-button>
                                         Verlengen

@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Genre;
 use App\Models\LentBooks;
 use App\Models\ReservedBook;
+use Auth;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -72,5 +73,19 @@ class BookController extends Controller
         $lentBooks = LentBooks::whereUserId(auth()->id())->with('book')->paginate();
 
         return view('pages.dashboard.lent-out', compact('lentBooks'));
+    }
+
+    public function extend(Book $book)
+    {
+        $lentBook = Auth::user()->lentBooks()->where('book_id', $book->id)->firstOrFail();
+
+        // If book is 3 times extended
+        if ($lentBook->times_extended >= 3) {
+            return back()->with('error', 'Boek is al 3x verlengd!');
+        }
+
+        $lentBook->increment('times_extended', 1);
+
+        return back()->with('success', 'Boek is succesvol verlengd!');
     }
 }

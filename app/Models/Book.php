@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class Book extends Model
 {
@@ -53,7 +52,7 @@ class Book extends Model
         return $query;
     }
 
-    public function isReservedBy(User $user)
+    public function isReservedBy(User $user): bool
     {
         return $this->reservedBooks->contains('user_id', $user->id);
     }
