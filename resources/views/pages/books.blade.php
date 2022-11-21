@@ -31,21 +31,21 @@
                     </x-select>
                 </div>
 
-                <div class="mt-5 space-y-1">
-                    <h2 class="text-xl font-medium !mb-1.5">Beschikbaarheid</h2>
-                    <div class="flex items-center space-x-2">
-                        <x-checkbox id="available" name="availability[]" value="available"/>
-                        <label for="available">Beschikbaar</label>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <x-checkbox id="reserved" name="availability[]" value="reserved"/>
-                        <label for="reserved">Gereserveerd</label>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <x-checkbox id="lent" name="availability[]" value="lent"/>
-                        <label for="lent">Uitgeleend</label>
-                    </div>
-                </div>
+{{--                <div class="mt-5 space-y-1">--}}
+{{--                    <h2 class="text-xl font-medium !mb-1.5">Beschikbaarheid</h2>--}}
+{{--                    <div class="flex items-center space-x-2">--}}
+{{--                        <x-checkbox id="available" name="availability[]" value="available"/>--}}
+{{--                        <label for="available">Beschikbaar</label>--}}
+{{--                    </div>--}}
+{{--                    <div class="flex items-center space-x-2">--}}
+{{--                        <x-checkbox id="reserved" name="availability[]" value="reserved"/>--}}
+{{--                        <label for="reserved">Gereserveerd</label>--}}
+{{--                    </div>--}}
+{{--                    <div class="flex items-center space-x-2">--}}
+{{--                        <x-checkbox id="lent" name="availability[]" value="lent"/>--}}
+{{--                        <label for="lent">Uitgeleend</label>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
                 <div class="flex w-full items-center justify-start md:justify-end">
                     <x-buttons.primary-button class="!mt-8">

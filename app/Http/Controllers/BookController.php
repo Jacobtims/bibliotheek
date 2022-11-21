@@ -35,7 +35,7 @@ class BookController extends Controller
             $query->whereAuthorId($request->genre_id);
         }
 
-        $books = $query->search($request->search)->paginate();
+        $books = $query->search($request->search)->paginate()->withQueryString();
 
         return view('pages.books', compact('books', 'authors', 'genres'));
     }

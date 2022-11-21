@@ -30,7 +30,7 @@
                         </tbody>
                     </table>
 
-                    @if(!$book->isReservedBy(auth()->user()))
+                    @if(!auth()->check() || !$book->isReservedBy(auth()->user()))
                         <form action="{{ route('books.reserve', $book->id) }}" method="POST">
                             @csrf
                             <x-buttons.primary-button>
