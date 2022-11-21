@@ -13,7 +13,7 @@
                 <!-- Boek verlengen -->
                 <x-icon-card icon="input" title="Boek verlengen" :url="route('dashboard.extend')"/>
                 <!-- Klant gegevens -->
-                <x-icon-card icon="group" title="Klant gegevens" :url="route('dashboard')"/>
+                <x-icon-card icon="group" title="Lezer gegevens" :url="route('dashboard.readers.index')"/>
             @endrole()
             @role('Admin')
                 <!-- Personeel gegevens -->
