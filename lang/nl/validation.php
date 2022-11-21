@@ -175,7 +175,13 @@ return [
         'email' => 'e-mailadres',
         'password' => 'wachtwoord',
         'password_confirmation' => 'bevestig wachtwoord',
-        'hired_at' => 'aangenomen op'
+        'hired_at' => 'aangenomen op',
+        'address' => 'adres',
+        'postal_code' => 'postcode',
+        'city' => 'woonplaats',
+        'state' => 'provincie',
+        'country' => 'land',
+        'phone' => 'telefoonnummer',
     ],
 
 ];
