@@ -10,9 +10,11 @@
                     inspiratie en antwoorden. Het kan en mag allemaal.<br/>
                     En als lid kun je nóg meer!
                 </p>
-                <x-buttons.primary-button class="px-7 py-2.5">
-                    Word lid van de bibliotheek
-                </x-buttons.primary-button>
+                <a href="{{ route('register') }}" class="block">
+                    <x-buttons.primary-button class="px-7 py-2.5">
+                        Word lid van de bibliotheek
+                    </x-buttons.primary-button>
+                </a>
             </div>
 
             <div class="hidden lg:block w-1/2 absolute top-0 right-0 -z-10">
