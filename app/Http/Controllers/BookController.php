@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
-use App\Models\LentBooks;
+use App\Models\LentBook;
 use App\Models\ReservedBook;
 use Auth;
 use Illuminate\Http\Request;
@@ -70,7 +70,7 @@ class BookController extends Controller
 
     public function lentOut()
     {
-        $lentBooks = LentBooks::whereUserId(auth()->id())->with('book')->paginate();
+        $lentBooks = LentBook::whereUserId(auth()->id())->with('book')->paginate();
 
         return view('pages.dashboard.lent-out', compact('lentBooks'));
     }

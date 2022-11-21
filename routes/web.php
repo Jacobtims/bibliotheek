@@ -24,13 +24,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:Lezer')->group(function () {
         Route::post('/books/reserve/{book}', [\App\Http\Controllers\BookController::class, 'reserve'])->name('books.reserve');
         Route::post('/books/cancel-reservation/{book}', [\App\Http\Controllers\BookController::class, 'cancelReservation'])->name('books.cancel-reservation');
-        Route::get('/dashboard/lent-out', [\App\Http\Controllers\BookController::class, 'lentOut'])->name('dashboard.books.lent-out');
-        Route::post('/dashboard/extend-book/{book}', [\App\Http\Controllers\BookController::class, 'extend'])->name('dashboard.books.extend');
+        Route::get('/dashboard/books/lent-out', [\App\Http\Controllers\BookController::class, 'lentOut'])->name('dashboard.books.lent-out');
+        Route::post('/dashboard/books/extend/{book}', [\App\Http\Controllers\BookController::class, 'extend'])->name('dashboard.books.extend');
     });
 
     Route::get('/dashboard', \App\Http\Controllers\Dashboard\DashboardController::class)->name('dashboard');
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::middleware('role:Personeel')->group(function () {
+            Route::get('/lend-out', [\App\Http\Controllers\Dashboard\BookController::class, 'lendOut'])->name('lend-out');
+            Route::post('/lend-outs', [\App\Http\Controllers\Dashboard\BookController::class, 'lendOutBook'])->name('lend-out-book');
+        });
         Route::middleware('role:Admin')->group(function () {
             Route::resource('employees', \App\Http\Controllers\Dashboard\EmployeeController::class)->parameters(['employees' => 'user'])->except('show');
             Route::resource('books', \App\Http\Controllers\Dashboard\BookController::class)->except('show');

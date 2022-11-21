@@ -7,6 +7,10 @@ use App\Http\Requests\BookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\LentBook;
+use App\Models\LentBooks;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -52,5 +56,29 @@ class BookController extends Controller
         $book->delete();
 
         return back()->with('success', 'Boek succesvol verwijderd!');
+    }
+
+    public function lendOut()
+    {
+        $users = User::role('Lezer')->withWhereHas('reader')->get(['id', 'name']);
+        $books = Book::get(['id', 'title']);
+
+        return view('pages.dashboard.books.lend-out', compact('users', 'books'));
+    }
+
+    public function lendOutBook(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
+            'book_id' => ['required', 'exists:books,id']
+        ]);
+
+        LentBook::create([
+            'user_id' => $request->user_id,
+            'book_id' => $request->book_id,
+            'lent_at' => now()
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Boek succesvol uitgeleend!');
     }
 }

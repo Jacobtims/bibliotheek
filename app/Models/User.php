@@ -41,6 +41,6 @@ class User extends Authenticatable
 
     public function lentBooks(): HasMany
     {
-        return $this->hasMany(LentBooks::class);
+        return $this->hasMany(LentBook::class);
     }
 }

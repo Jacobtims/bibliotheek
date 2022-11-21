@@ -81,7 +81,7 @@
                             </a>
                         </td>
                         <td class="py-4 pr-5">
-                            {!! $book->status !!}
+                            {!! $book->coloredStatus !!}
                         </td>
                     </tr>
                 @empty

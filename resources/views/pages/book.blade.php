@@ -65,7 +65,7 @@
                                 {{ $copy->isbn }}
                             </td>
                             <td class="py-4">
-                                {!! $copy->status !!}
+                                {!! $copy->coloredStatus !!}
                             </td>
                             <td class="py-4 pr-5">
                                 Beeckberghen

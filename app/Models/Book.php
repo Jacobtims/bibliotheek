@@ -12,6 +12,8 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $appends = ['status'];
+
     protected $fillable = [
         'isbn',
         'title',
@@ -38,7 +40,7 @@ class Book extends Model
 
     public function lentBooks(): HasMany
     {
-        return $this->hasMany(LentBooks::class)->whereNull('returned_at');
+        return $this->hasMany(LentBook::class)->whereNull('returned_at');
     }
 
     public function scopeSearch($query, $searchTerm)
@@ -58,6 +60,20 @@ class Book extends Model
     }
 
     protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->reservedBooks->count() === 1) {
+                    return 'reserved';
+                } elseif ($this->lentBooks->count() === 1) {
+                    return 'lent';
+                }
+                return 'available';
+            }
+        );
+    }
+
+    protected function coloredStatus(): Attribute
     {
         return Attribute::make(
             get: function () {
