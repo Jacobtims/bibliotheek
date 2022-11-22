@@ -16,7 +16,7 @@
                 </tr>
                 </thead>
                 <tbody class="font-medium">
-                @foreach($lentBooks as $lentBook)
+                @forelse($lentBooks as $lentBook)
                     <tr class="even:bg-table-row align-top">
                         <td class="py-4 pl-5 w-32">
                             <a href="{{ route('books.show', $lentBook->book->id) }}">
@@ -47,7 +47,11 @@
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td class="py-4 pl-5" colspan="4">Je hebt geen boeken geleend</td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
 
