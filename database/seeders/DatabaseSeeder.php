@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesAndPermissionsSeeder::class,
             UserSeeder::class,
+            SubscriptionPlanSeeder::class
         ]);
 
         // If environment is local

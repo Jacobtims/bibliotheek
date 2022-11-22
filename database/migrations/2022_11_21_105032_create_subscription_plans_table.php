@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subscriptions', function (Blueprint $table) {
+        Schema::create('subscription_plans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subscription_plan_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->dateTime('started_at');
-            $table->dateTime('ends_at');
-            $table->timestamps();
+            $table->string('name');
+            $table->float('price', 9, 2);
+            $table->integer('books');
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('subscriptions_plans');
     }
 };

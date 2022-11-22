@@ -21,7 +21,7 @@ Route::get('/books', [\App\Http\Controllers\BookController::class, 'index'])->na
 Route::get('/books/{book}', [\App\Http\Controllers\BookController::class, 'show'])->name('books.show');
 
 Route::get('/subscriptions', [\App\Http\Controllers\SubscriptionController::class, 'show'])->name('subscriptions.show');
-Route::post('/subscription/purchase', [\App\Http\Controllers\SubscriptionController::class, 'purchase'])->name('subscriptions.purchase');
+Route::post('/subscription/purchase/{subscriptionPlan}', [\App\Http\Controllers\SubscriptionController::class, 'purchase'])->name('subscriptions.purchase');
 
 Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
     Route::middleware('role:Lezer')->group(function () {

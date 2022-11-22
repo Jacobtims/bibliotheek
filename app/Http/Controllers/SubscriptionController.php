@@ -2,32 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SubscriptionPlan;
 use Auth;
-use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
     public function show()
     {
-        $subscriptions = config('subscriptions.plans');
+        $subscriptionPlans = SubscriptionPlan::all();
 
-        return view('auth.subscription', compact('subscriptions'));
+        return view('auth.subscription', compact('subscriptionPlans'));
     }
 
-    public function purchase(Request $request)
+    public function purchase(SubscriptionPlan $subscriptionPlan)
     {
-        $request->validate([
-            'subscription' => ['required', 'in:BASIS,STANDAARD,PREMIUM']
-        ]);
-
-        $subscription = config('subscriptions.plans.' . $request->subscription);
-
         Auth::user()->subscription()->create([
-            'plan' => $subscription->code,
+            'subscription_plan_id' => $subscriptionPlan->id,
             'started_at' => now(),
-            'ends_at' => now()->addYear(),
+            'ends_at' => now()->addMonth(),
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Uw ' . $subscription->name . ' abonnement is nu actief!');
+        return redirect()->route('dashboard')->with('success', 'Uw ' . strtolower($subscriptionPlan->name) . ' abonnement is nu actief!');
     }
 }
