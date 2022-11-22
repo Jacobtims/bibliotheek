@@ -17,14 +17,6 @@ class BookSeeder extends Seeder
     public function run()
     {
         Book::create([
-            'isbn' => '9783458319726',
-            'title' => 'De negerhut van Oom Tom',
-            'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/UncleTomsCabinCover.jpg/800px-UncleTomsCabinCover.jpg',
-            'author_id' => Author::firstOrCreate(['name' => 'Harriet Beecher Stowe'])->id,
-            'genre_id' => Genre::firstOrCreate(['name' => 'Roman'])->id,
-            'purchased_at' => today(),
-        ]);
-        Book::create([
             'isbn' => '9789085434634',
             'title' => 'Noodweer',
             'image' => 'https://media.s-bol.com/097BvlMK5E97/550x807.jpg',
@@ -46,6 +38,38 @@ class BookSeeder extends Seeder
             'image' => 'https://media.s-bol.com/O950Zw0rmQpQ/NL9JlD/535x840.jpg',
             'author_id' => Author::firstOrCreate(['name' => 'Kees Jansma'])->id,
             'genre_id' => Genre::firstOrCreate(['name' => 'Sport & Outdoor'])->id,
+            'purchased_at' => today(),
+        ]);
+        Book::create([
+            'isbn' => '9789056479183',
+            'title' => 'Nijntje en sinterklaas',
+            'image' => 'https://media.s-bol.com/xzLnErGNBGPq/o72JZA/1186x1200.jpg',
+            'author_id' => Author::firstOrCreate(['name' => 'Dick Bruna'])->id,
+            'genre_id' => Genre::firstOrCreate(['name' => 'Kinderboek'])->id,
+            'purchased_at' => today(),
+        ]);
+        Book::create([
+            'isbn' => '9789402711837',
+            'title' => 'Het Isisgeheim',
+            'image' => 'https://www.bookspot.nl/images/active/carrousel/fullsize/9789402711837_front.jpg',
+            'author_id' => Author::firstOrCreate(['name' => 'Jeroen Windmeijer'])->id,
+            'genre_id' => Genre::firstOrCreate(['name' => 'Nederlands'])->id,
+            'purchased_at' => today(),
+        ]);
+        Book::create([
+            'isbn' => '9789402711837',
+            'title' => 'Het schaarse licht',
+            'image' => 'https://www.bookspot.nl/images/active/carrousel/fullsize/9789493169838_front.jpg',
+            'author_id' => Author::firstOrCreate(['name' => 'Nino Haratischwili'])->id,
+            'genre_id' => Genre::firstOrCreate(['name' => 'Fictie'])->id,
+            'purchased_at' => today(),
+        ]);
+        Book::create([
+            'isbn' => '9789400514508',
+            'title' => 'Gletsjer',
+            'image' => 'https://www.bookspot.nl/images/active/carrousel/fullsize/9789400514508_front.jpg',
+            'author_id' => Author::firstOrCreate(['name' => 'Suzanne Vermeer'])->id,
+            'genre_id' => Genre::firstOrCreate(['name' => 'Misdaad'])->id,
             'purchased_at' => today(),
         ]);
     }
