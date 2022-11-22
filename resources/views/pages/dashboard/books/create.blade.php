@@ -7,7 +7,7 @@
                 Nieuw boek
             </h1>
 
-            <form method="POST" action="{{ route('dashboard.books.store') }}" class="w-full md:w-1/2">
+            <form method="POST" action="{{ route('dashboard.books.store') }}" class="w-full md:w-1/2" x-data="{ author: '0', genre: '0' }">
                 @csrf
 
                 <div>
@@ -30,8 +30,8 @@
 
                 <div class="mt-4">
                     <x-input-label for="author" value="Auteur" />
-                    <x-select id="author" class="block mt-1 w-full" type="text" name="author_id" required>
-                        <option disabled {{ !old('author_id') ? "selected" : "" }}>Selecteer een auteur</option>
+                    <x-select id="author" class="block mt-1 w-full" type="text" name="author_id" required x-model="author">
+                        <option value="0" {{ !old('author_id') ? "selected" : "" }}>Nieuwe auteur maken</option>
                         @foreach($authors as $author)
                             <option value="{{ $author->id }}" {{ old('author_id') == $author->id ? "selected" : "" }}>{{ $author->name }}</option>
                         @endforeach
@@ -39,15 +39,27 @@
                     <x-input-error :messages="$errors->get('author_id')" class="mt-2" />
                 </div>
 
+                <div class="mt-2" x-show="author === '0'">
+                    <x-input-label for="new_author" value="Nieuwe auteur" />
+                    <x-text-input id="new_author" class="block mt-1 w-full" type="text" name="author" placeholder="Nieuwe auteur" :value="old('author')"/>
+                    <x-input-error :messages="$errors->get('author')" class="mt-2" />
+                </div>
+
                 <div class="mt-4">
                     <x-input-label for="genre" value="Genre" />
-                    <x-select id="genre" class="block mt-1 w-full" type="text" name="genre_id" required>
-                        <option disabled {{ !old('genre_id') ? "selected" : "" }}>Selecteer een genre</option>
+                    <x-select id="genre" class="block mt-1 w-full" type="text" name="genre_id" required  x-model="genre">
+                        <option value="0" {{ !old('genre_id') ? "selected" : "" }}>Nieuwe genre maken</option>
                         @foreach($genres as $genre)
                             <option value="{{ $genre->id }}" {{ old('genre_id') == $genre->id ? "selected" : "" }}>{{ $genre->name }}</option>
                         @endforeach
                     </x-select>
                     <x-input-error :messages="$errors->get('genre_id')" class="mt-2" />
+                </div>
+
+                <div class="mt-2" x-show="genre === '0'">
+                    <x-input-label for="new_genre" value="Nieuwe genre" />
+                    <x-text-input id="new_genre" class="block mt-1 w-full" type="text" name="genre" placeholder="Nieuwe genre" :value="old('genre')"/>
+                    <x-input-error :messages="$errors->get('genre')" class="mt-2" />
                 </div>
 
                 <div class="mt-4">

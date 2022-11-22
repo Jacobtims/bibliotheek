@@ -26,8 +26,10 @@ class BookRequest extends FormRequest
         return [
             'isbn' => ['required', 'string', 'max:255'],
             'title' => ['required', 'string', 'max:255'],
-            'author_id' => ['required', 'exists:authors,id'],
-            'genre_id' => ['required', 'exists:genres,id'],
+            'author_id' => ['required'],
+            'author' => ['required', 'required_unless:author_id,0'],
+            'genre_id' => ['required'],
+            'genre' => ['required', 'required_unless:author_id,0'],
             'purchased_at' => ['required', 'date'],
             'image' => ['required', 'string', 'url', 'max:255'],
         ];

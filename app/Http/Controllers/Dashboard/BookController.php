@@ -8,7 +8,6 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Models\LentBook;
-use App\Models\LentBooks;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,7 +31,28 @@ class BookController extends Controller
 
     public function store(BookRequest $request)
     {
-        Book::create($request->validated());
+        // Check whether a new author needs to be created
+        if ($request->author_id === '0') {
+            $author = Author::create(['name' => $request->author]);
+        } else {
+            $author = Author::findOrFail($request->author_id);
+        }
+        // Check whether a new genre needs to be created
+        if ($request->genre_id === '0') {
+            $genre = Genre::create(['name' => $request->genre]);
+        } else {
+            $genre = Genre::findOrFail($request->genre_id);
+        }
+
+        // Create book
+        Book::create([
+            'isbn' => $request->isbn,
+            'title' => $request->title,
+            'author_id' => $author->id,
+            'genre_id' => $genre->id,
+            'purchased_at' => $request->purchased_at,
+            'image' => $request->image,
+        ]);
 
         return redirect()->route('dashboard.books.index')->with('success', 'Boek succesvol aangemaakt!');
     }
