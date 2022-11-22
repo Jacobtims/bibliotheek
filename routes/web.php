@@ -20,7 +20,10 @@ Route::get('/auteurs', \App\Http\Controllers\HomeController::class)->name('auteu
 Route::get('/books', [\App\Http\Controllers\BookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [\App\Http\Controllers\BookController::class, 'show'])->name('books.show');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::get('/subscriptions', [\App\Http\Controllers\SubscriptionController::class, 'show'])->name('subscriptions.show');
+Route::post('/subscription/purchase', [\App\Http\Controllers\SubscriptionController::class, 'purchase'])->name('subscriptions.purchase');
+
+Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
     Route::middleware('role:Lezer')->group(function () {
         Route::post('/books/reserve/{book}', [\App\Http\Controllers\BookController::class, 'reserve'])->name('books.reserve');
         Route::post('/books/cancel-reservation/{book}', [\App\Http\Controllers\BookController::class, 'cancelReservation'])->name('books.cancel-reservation');
