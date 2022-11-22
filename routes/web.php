@@ -39,6 +39,8 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
             Route::post('/lend-out', [\App\Http\Controllers\Dashboard\BookController::class, 'lendOutBook'])->name('lend-out-book');
             Route::get('/extend', [\App\Http\Controllers\Dashboard\BookController::class, 'extend'])->name('extend');
             Route::post('/extend', [\App\Http\Controllers\Dashboard\BookController::class, 'extendBook'])->name('extend-book');
+            Route::get('/return', [\App\Http\Controllers\Dashboard\BookController::class, 'return'])->name('return');
+            Route::post('/return', [\App\Http\Controllers\Dashboard\BookController::class, 'returnBook'])->name('return-book');
             Route::resource('readers', \App\Http\Controllers\Dashboard\ReaderController::class)->parameters(['readers' => 'user']);
         });
         Route::middleware('role:Admin')->group(function () {

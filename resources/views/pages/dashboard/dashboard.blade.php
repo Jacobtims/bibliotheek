@@ -12,6 +12,8 @@
                 <x-icon-card icon="library_books" title="Boek uitlenen" :url="route('dashboard.lend-out')"/>
                 <!-- Boek verlengen -->
                 <x-icon-card icon="input" title="Boek verlengen" :url="route('dashboard.extend')"/>
+                <!-- Boek inleveren -->
+                <x-icon-card icon="settings_backup_restore" title="Boek inleveren" :url="route('dashboard.return')"/>
                 <!-- Klant gegevens -->
                 <x-icon-card icon="group" title="Lezer gegevens" :url="route('dashboard.readers.index')"/>
             @endrole()

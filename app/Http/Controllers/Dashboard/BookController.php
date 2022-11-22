@@ -74,13 +74,26 @@ class BookController extends Controller
             'book_id' => ['required', 'exists:books,id']
         ]);
 
+        $user = User::findOrFail($request->user_id);
+        // Check if user has a subscription
+        if (!$user->subscription()->exists()) {
+            return back()->with('error', 'Deze lezer heeft geen abonnement!');
+        }
+        // Check if user lent max books
+        $userLentBooksCount = $user->lentBooks->count();
+        $userSubscriptionBooksCount = $user->subscription?->subscriptionPlan->books;
+        if ($userLentBooksCount >= $userSubscriptionBooksCount) {
+            return back()->with('error', 'Deze lezer heeft de maximale aantal van ' . $user->subscription->subscriptionPlan->books . ' boeken geleend!');
+        }
+
+        // Create lent book record
         LentBook::create([
             'user_id' => $request->user_id,
             'book_id' => $request->book_id,
             'lent_at' => now()
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Boek succesvol uitgeleend!');
+        return back()->with('success', 'Boek succesvol uitgeleend (' . $userLentBooksCount + 1 . '/' . $userSubscriptionBooksCount . ' boeken)');
     }
 
     public function extend()
@@ -98,7 +111,7 @@ class BookController extends Controller
             'book_id' => ['required', 'exists:books,id']
         ]);
 
-        $lentBook = LentBook::whereUserId($request->user_id)->whereBookId($request->book_id)->first();
+        $lentBook = LentBook::whereUserId($request->user_id)->whereBookId($request->book_id)->whereNotNull('returned_at')->first();
 
         // If book isn't lend by this reader
         if (!$lentBook) {
@@ -109,6 +122,35 @@ class BookController extends Controller
         $lentBook->increment('times_extended', 1);
         $date = Carbon::parse($lentBook->lent_until)->translatedFormat('d F Y');
 
-        return redirect()->route('dashboard')->with('success', 'Boek succesvol verlengd t/m ' . $date . '!');
+        return back()->with('success', 'Boek succesvol verlengd t/m ' . $date . '!');
+    }
+
+    public function return()
+    {
+        $users = User::role('Lezer')->withWhereHas('reader')->get(['id', 'name']);
+        $books = Book::get(['id', 'title'])->where('status', 'lent');
+
+        return view('pages.dashboard.books.return', compact('users', 'books'));
+    }
+
+    public function returnBook(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
+            'book_id' => ['required', 'exists:books,id']
+        ]);
+
+        $lentBook = LentBook::whereUserId($request->user_id)->whereBookId($request->book_id)->whereNull('returned_at')->first();
+
+        // If book isn't lend by this reader
+        if (!$lentBook) {
+            return back()->with('error', 'Deze lezer heeft dit boek niet uitgeleend!');
+        }
+
+        $lentBook->update([
+            'returned_at' => now()
+        ]);
+
+        return back()->with('success', 'Boek succesvol ingeleverd!');
     }
 }
