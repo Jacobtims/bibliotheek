@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Book extends Model
 {
@@ -33,14 +33,14 @@ class Book extends Model
         return $this->belongsTo(Genre::class);
     }
 
-    public function reservedBooks(): HasMany
+    public function reservedBook(): HasOne
     {
-        return $this->hasMany(ReservedBook::class);
+        return $this->hasOne(ReservedBook::class)->latest();
     }
 
-    public function lentBooks(): HasMany
+    public function lentBook(): HasOne
     {
-        return $this->hasMany(LentBook::class)->whereNull('returned_at');
+        return $this->hasOne(LentBook::class)->whereNull('returned_at')->latest();
     }
 
     public function scopeSearch($query, $searchTerm)
@@ -56,16 +56,16 @@ class Book extends Model
 
     public function isReservedBy(User $user): bool
     {
-        return $this->reservedBooks->contains('user_id', $user->id);
+        return $this->reservedBook?->user_id === $user->id;
     }
 
     protected function status(): Attribute
     {
         return Attribute::make(
             get: function () {
-                if ($this->reservedBooks->count() === 1) {
+                if ($this->reservedBook()->exists()) {
                     return 'reserved';
-                } elseif ($this->lentBooks->count() === 1) {
+                } elseif ($this->lentBook()->exists()) {
                     return 'lent';
                 }
                 return 'available';
@@ -77,9 +77,9 @@ class Book extends Model
     {
         return Attribute::make(
             get: function () {
-                if ($this->reservedBooks->count() === 1) {
+                if ($this->reservedBook()->exists()) {
                     return '<span class="text-gray">Gereserveerd</span>';
-                } elseif ($this->lentBooks->count() === 1) {
+                } elseif ($this->lentBook()->exists()) {
                     return '<span class="text-red">Uitgeleend</span>';
                 }
                 return '<span class="text-green-700">Beschikbaar</span>';
