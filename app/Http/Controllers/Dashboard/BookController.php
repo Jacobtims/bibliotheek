@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BookRequest;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
@@ -29,7 +30,7 @@ class BookController extends Controller
         return view('pages.dashboard.books.create', compact('authors', 'genres'));
     }
 
-    public function store(BookRequest $request)
+    public function store(StoreBookRequest $request)
     {
         // Check whether a new author needs to be created
         if ($request->author_id === '0') {
@@ -52,6 +53,7 @@ class BookController extends Controller
             'genre_id' => $genre->id,
             'purchased_at' => $request->purchased_at,
             'image' => $request->image,
+            'content' => $request->input('content'),
         ]);
 
         return redirect()->route('dashboard.books.index')->with('success', 'Boek succesvol aangemaakt!');
@@ -65,9 +67,18 @@ class BookController extends Controller
         return view('pages.dashboard.books.edit', compact('authors', 'genres', 'book'));
     }
 
-    public function update(BookRequest $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        $book->update($request->validated());
+        // Create book
+        $book->update([
+            'isbn' => $request->isbn,
+            'title' => $request->title,
+            'author_id' => $request->author_id,
+            'genre_id' => $request->genre_id,
+            'purchased_at' => $request->purchased_at,
+            'image' => $request->image,
+            'content' => $request->input('content'),
+        ]);
 
         return redirect()->route('dashboard.books.index')->with('success', 'Boek succesvol aangepast!');
     }

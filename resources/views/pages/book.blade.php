@@ -21,9 +21,7 @@
                         <tr>
                             <th class="py-2 pr-4">Inhoud</th>
                             <td class="py-2">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/>
-                                Aliquam tincidunt et purus consequat vehicula. Integer tempus nunc eu scelerisque
-                                malesuada.
+                                {{ $book->content }}
                             </td>
                         </tr>
                         </tbody>

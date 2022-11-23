@@ -182,6 +182,7 @@ return [
         'state' => 'provincie',
         'country' => 'land',
         'phone' => 'telefoonnummer',
+        'content' => 'inhoud',
     ],
 
 ];
