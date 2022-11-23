@@ -33,7 +33,7 @@ class BookController extends Controller
         }
 
         if ($request->filled('genre_id')) {
-            $query->whereAuthorId($request->genre_id);
+            $query->whereGenreId($request->genre_id);
         }
 
         $books = $query->search($request->search)->paginate()->withQueryString();
