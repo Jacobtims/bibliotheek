@@ -40,8 +40,11 @@
 
                     <x-slot name="content">
                         <div>
-                            <x-dropdown-link :href="route('dashboard')">
+                            <x-dropdown-link :href="route('dashboard')" class="mb-0.5">
                                 Dashboard
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('profile.edit')">
+                                Profiel
                             </x-dropdown-link>
                             <hr class="text-light my-1"/>
                             <!-- Logout button -->

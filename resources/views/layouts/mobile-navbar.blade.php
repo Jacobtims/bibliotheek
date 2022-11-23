@@ -40,6 +40,10 @@
                            class="py-2.5 px-6 text-white font-medium rounded-full hover:bg-white hover:text-primary transition ease-in-out duration-150">
                             Dashboard
                         </a>
+                        <a href="{{ route('profile.edit') }}"
+                           class="py-2.5 px-6 text-white font-medium rounded-full hover:bg-white hover:text-primary transition ease-in-out duration-150">
+                            Profiel
+                        </a>
                         <!-- Logout button -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
