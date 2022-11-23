@@ -70,7 +70,10 @@ class BookController extends Controller
 
     public function lentOut()
     {
-        $lentBooks = LentBook::whereUserId(auth()->id())->with('book')->whereNull('returned_at')->paginate();
+        $lentBooks = LentBook::whereUserId(auth()->id())->with('book')
+            ->whereNull('returned_at')
+            ->orderByDesc('lent_at')
+            ->paginate();
 
         return view('pages.dashboard.lent-out', compact('lentBooks'));
     }
@@ -82,6 +85,11 @@ class BookController extends Controller
         // If book is 3 times extended
         if ($lentBook->times_extended >= 3) {
             return back()->with('error', 'Boek is al 3x verlengd!');
+        }
+
+        // If book is overdue
+        if ($lentBook->days_overdue > 0) {
+            return back()->with('error', 'Dit boek is te laat!');
         }
 
         $lentBook->increment('times_extended', 1);
