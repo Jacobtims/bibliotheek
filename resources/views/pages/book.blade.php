@@ -3,8 +3,7 @@
         <x-card class="h-max sm:px-6 lg:px-8 py-6 lg:py-8">
             <div class="flex flex-col md:flex-row gap-6 mb-8 md:mb-12">
                 <div>
-                    <img src="{{ $book->image }}" style="width: 256px;"
-                         onerror="this.onerror = null; this.src = '/storage/images/no-image.png'"/>
+                    <img src="{{ $book->image }}" style="width: 256px;"/>
                 </div>
                 <div class="py-4">
                     <h1 class="text-3xl font-semibold mb-3">{{ $book->title }}</h1>
@@ -30,14 +29,18 @@
                         </tbody>
                     </table>
 
-                    @if(!auth()->check() || !$book->isReservedBy(auth()->user()))
+                    @if((!auth()->check() || !$book->isReservedBy(auth()->user())) && !$book->isLentBy(auth()->user()))
                         <form action="{{ route('books.reserve', $book->id) }}" method="POST">
                             @csrf
                             <x-buttons.primary-button>
                                 Reserveer
                             </x-buttons.primary-button>
                         </form>
-                    @else
+                    @elseif($book->isLentBy(auth()->user()))
+                        <x-buttons.primary-button disabled>
+                            Je hebt dit boek uitgeleend
+                        </x-buttons.primary-button>
+                    @elseif(auth()->check() && $book->isReservedBy(auth()->user()))
                         <form action="{{ route('books.cancel-reservation', $book->id) }}" method="POST">
                             @csrf
                             <x-buttons.gray-button>

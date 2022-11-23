@@ -59,6 +59,11 @@ class Book extends Model
         return $this->reservedBook?->user_id === $user->id;
     }
 
+    public function isLentBy(User $user): bool
+    {
+        return $this->lentBook?->user_id === $user->id;
+    }
+
     protected function status(): Attribute
     {
         return Attribute::make(
