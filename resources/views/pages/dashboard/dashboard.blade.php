@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto py-12 flex gap-6">
+    <div class="max-w-7xl mx-auto py-12 flex flex-col md:flex-row gap-6">
         <!-- Icon cards for actions -->
-        <section class="w-2/3">
-            <div class="grid grid-cols-2 gap-6">
+        <section class="md:w-2/3">
+            <div class="grid md:grid-cols-2 gap-6">
                 @role('Lezer')
                 <!-- Geleende boeken -->
                 <x-icon-card icon="library_books" title="Geleende boeken" :url="route('dashboard.books.lent-out')"/>
@@ -31,7 +31,7 @@
             </div>
         </section>
         <!-- Notifications -->
-        <section class="w-1/3">
+        <section class="md:w-1/3">
             <x-card>
                 <h1 class="text-xl font-semibold mb-3">Notifications</h1>
 

@@ -50,30 +50,32 @@
 
             <div>
                 <h1 class="font-semibold text-2xl mb-3">Exemplaren</h1>
-                <table class="table-auto w-full">
-                    <thead class="text-left text-sm text-gray font-semibold uppercase bg-table-row">
-                    <tr>
-                        <th class="py-3 pl-5">ISBN</th>
-                        <th class="py-3">Status</th>
-                        <th class="py-3 pr-5">Vestiging</th>
-                    </tr>
-                    </thead>
-                    <tbody class="font-medium">
-                    @foreach($copies as $copy)
-                        <tr class="even:bg-table-row align-top">
-                            <td class="py-4 pl-5">
-                                {{ $copy->isbn }}
-                            </td>
-                            <td class="py-4">
-                                {!! $copy->coloredStatus !!}
-                            </td>
-                            <td class="py-4 pr-5">
-                                Beeckberghen
-                            </td>
+                <x-responsive-table>
+                    <table class="table-auto w-full">
+                        <thead class="text-left text-sm text-gray font-semibold uppercase bg-table-row">
+                        <tr>
+                            <th class="py-3 pl-5">ISBN</th>
+                            <th class="py-3 px-5">Status</th>
+                            <th class="py-3 pr-5">Vestiging</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="font-medium">
+                        @foreach($copies as $copy)
+                            <tr class="even:bg-table-row align-top">
+                                <td class="py-4 pl-5">
+                                    {{ $copy->isbn }}
+                                </td>
+                                <td class="py-4 px-5">
+                                    {!! $copy->coloredStatus !!}
+                                </td>
+                                <td class="py-4 pr-5">
+                                    Beeckberghen
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </x-responsive-table>
             </div>
         </x-card>
     </div>

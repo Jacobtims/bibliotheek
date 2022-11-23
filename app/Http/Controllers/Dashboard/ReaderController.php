@@ -14,7 +14,7 @@ class ReaderController extends Controller
 {
     public function index()
     {
-        $users = User::role('Lezer')->withWhereHas('reader')->paginate(10);
+        $users = User::role('Lezer')->withWhereHas('reader')->with('subscription.subscriptionPlan')->paginate(10);
 
         return view('pages.dashboard.readers.index', compact('users'));
     }
