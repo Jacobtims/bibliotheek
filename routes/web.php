@@ -46,6 +46,7 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
         Route::middleware('role:Admin')->group(function () {
             Route::resource('employees', \App\Http\Controllers\Dashboard\EmployeeController::class)->parameters(['employees' => 'user'])->except('show');
             Route::resource('books', \App\Http\Controllers\Dashboard\BookController::class)->except('show');
+            Route::resource('notifications', \App\Http\Controllers\Dashboard\NotificationController::class)->except('show');
         });
     });
 });

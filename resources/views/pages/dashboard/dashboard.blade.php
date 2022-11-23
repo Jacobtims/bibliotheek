@@ -22,8 +22,8 @@
                 <x-icon-card icon="group" title="Personeel gegevens" :url="route('dashboard.employees.index')"/>
                 <!-- Boeken -->
                 <x-icon-card icon="menu_book" title="Boeken" :url="route('dashboard.books.index')"/>
-                <!-- Rollen en rechten -->
-                <x-icon-card icon="manage_accounts" title="Rollen en rechten" :url="route('dashboard')"/>
+                <!-- Notifications -->
+                <x-icon-card icon="notifications_active" title="Notificatie plaatsen" :url="route('dashboard.notifications.index')"/>
             @endrole()
         </div>
     </div>
