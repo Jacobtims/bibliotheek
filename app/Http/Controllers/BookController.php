@@ -70,7 +70,7 @@ class BookController extends Controller
 
     public function lentOut()
     {
-        $lentBooks = LentBook::whereUserId(auth()->id())->with('book')->paginate();
+        $lentBooks = LentBook::whereUserId(auth()->id())->with('book')->whereNull('returned_at')->paginate();
 
         return view('pages.dashboard.lent-out', compact('lentBooks'));
     }

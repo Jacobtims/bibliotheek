@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
         Route::post('/books/cancel-reservation/{book}', [\App\Http\Controllers\BookController::class, 'cancelReservation'])->name('books.cancel-reservation');
         Route::get('/dashboard/books/lent-out', [\App\Http\Controllers\BookController::class, 'lentOut'])->name('dashboard.books.lent-out');
         Route::post('/dashboard/books/extend/{book}', [\App\Http\Controllers\BookController::class, 'extend'])->name('dashboard.books.extend');
+        Route::get('/dashboard/fines', [\App\Http\Controllers\Dashboard\FineController::class, 'index'])->name('dashboard.fines.index');
     });
 
     Route::get('/dashboard', \App\Http\Controllers\Dashboard\DashboardController::class)->name('dashboard');

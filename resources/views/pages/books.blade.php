@@ -70,8 +70,7 @@
                     <tr class="even:bg-table-row align-top">
                         <td class="py-4 pl-5">
                             <a href="{{ route('books.show', $book->id) }}">
-                                <img src="{{ $book->image }}" class="w-20"
-                                     onerror="this.onerror = null; this.src = '/storage/images/no-image.png'"/>
+                                <img src="{{ $book->image }}" class="w-20"/>
                             </a>
                         </td>
                         <td class="py-4">

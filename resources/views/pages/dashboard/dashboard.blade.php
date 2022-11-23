@@ -7,7 +7,7 @@
                 <!-- Geleende boeken -->
                 <x-icon-card icon="library_books" title="Geleende boeken" :url="route('dashboard.books.lent-out')"/>
                 <!-- Boetes -->
-                <x-icon-card icon="payments" title="Boetes" :url="route('dashboard')"/>
+                <x-icon-card icon="payments" title="Boetes" :url="route('dashboard.fines.index')"/>
                 @endrole()
                 @role('Personeel')
                 <!-- Boek uitlenen -->

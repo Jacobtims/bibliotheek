@@ -25,6 +25,13 @@ class LentBook extends Model
         return $this->belongsTo(Book::class);
     }
 
+    protected function daysOverdue(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->lent_until->diffInDays(today(), false)
+        );
+    }
+
     protected function lentUntil(): Attribute
     {
         return Attribute::make(
