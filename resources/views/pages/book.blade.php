@@ -5,7 +5,7 @@
                 <div>
                     <img src="{{ $book->image }}" style="width: 256px;"/>
                 </div>
-                <div class="py-4">
+                <div class="py-4 flex-1">
                     <h1 class="text-3xl font-semibold mb-3">{{ $book->title }}</h1>
 
                     <table class="table-auto text-left mb-8">
