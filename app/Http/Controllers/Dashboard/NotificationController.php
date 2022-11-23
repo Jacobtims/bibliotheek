@@ -28,7 +28,7 @@ class NotificationController extends Controller
     {
         $request->validate([
             'role_id' => ['required', 'exists:roles,id'],
-            'notification' => ['required', 'string', 'max:1000']
+            'notification' => ['required', 'string', 'max:255']
         ]);
 
         Notification::create($request->only(['role_id', 'notification']));
@@ -47,7 +47,7 @@ class NotificationController extends Controller
     {
         $request->validate([
             'role_id' => ['required', 'exists:roles,id'],
-            'notification' => ['required', 'string', 'max:1000']
+            'notification' => ['required', 'string', 'max:255']
         ]);
 
         $notification->update($request->only(['role_id', 'notification']));
