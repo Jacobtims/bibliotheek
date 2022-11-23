@@ -74,12 +74,6 @@
             <x-navbar-item route="books.index">
                 Alle boeken
             </x-navbar-item>
-            <x-navbar-item route="genres">
-                Genres
-            </x-navbar-item>
-            <x-navbar-item route="auteurs">
-                Auteurs
-            </x-navbar-item>
         </ul>
     </nav>
 </div>

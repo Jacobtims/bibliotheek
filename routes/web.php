@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
-Route::get('/genres', \App\Http\Controllers\HomeController::class)->name('genres');
-Route::get('/auteurs', \App\Http\Controllers\HomeController::class)->name('auteurs');
 
 Route::get('/books', [\App\Http\Controllers\BookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [\App\Http\Controllers\BookController::class, 'show'])->name('books.show');

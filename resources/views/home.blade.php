@@ -46,29 +46,17 @@
     </section>
 
     <!-- Alle boeken section -->
-    <section class="max-w-7xl mx-auto px-4 py-5 mb-12 lg:mb-28" x-data="{ selected: 1 }">
+    <section class="max-w-7xl mx-auto px-4 py-5 mb-12 lg:mb-28">
         <h2 class="font-bold text-4xl mb-8 md:mb-14">Nieuwe boeken</h2>
 
-        <div class="flex justify-between gap-6 lg:gap-12">
-            <div>
-                <img src="{{ asset('storage/images/ontsloten-verleden.png') }}"/>
-            </div>
-            <div>
-                <img src="{{ asset('storage/images/alleen-maar-zee.png') }}"/>
-            </div>
-            <div>
-                <img src="{{ asset('storage/images/voor-een-verloren-soldaat.png') }}"/>
-            </div>
-            <div>
-                <img src="{{ asset('storage/images/een-schitterend-plan.png') }}"/>
-            </div>
-        </div>
-
-        <!-- Navigator -->
-        <div class="flex justify-center gap-3 mt-8 lg:mt-12">
-            <button class="w-4 h-4 bg-primary rounded-full" :class="selected === 1 ? 'bg-primary-dark' : ''" @click="selected = 1"/>
-            <button class="w-4 h-4 bg-primary rounded-full" :class="selected === 2 ? 'bg-primary-dark' : ''" @click="selected = 2"/>
-            <button class="w-4 h-4 bg-primary rounded-full" :class="selected === 3 ? 'bg-primary-dark' : ''" @click="selected = 3"/>
+        <div class="flex flex-col md:flex-row justify-between gap-6 lg:gap-12">
+            @foreach($books as $book)
+                <div class="w-4/5 md:w-1/4 shadow-md md:hover:scale-110 transition duration-300 ease-in-out">
+                    <a href="{{ route('books.show', $book->id) }}">
+                        <img src="{{ $book->image }}" class="h-full w-full object-fill"/>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </section>
 </x-app-layout>
