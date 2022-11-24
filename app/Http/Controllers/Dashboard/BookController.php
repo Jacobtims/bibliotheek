@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Mail\ReservedBookReturned;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
@@ -12,6 +13,7 @@ use App\Models\LentBook;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Mail;
 
 class BookController extends Controller
 {
@@ -159,7 +161,7 @@ class BookController extends Controller
     public function return()
     {
         $users = User::role('Lezer')->withWhereHas('reader')->get(['id', 'name']);
-        $books = Book::get(['id', 'title'])->where('status', 'lent');
+        $books = Book::whereHas('lentBook')->get(['id', 'title']);
 
         return view('pages.dashboard.books.return', compact('users', 'books'));
     }
@@ -181,6 +183,12 @@ class BookController extends Controller
         $lentBook->update([
             'returned_at' => now()
         ]);
+
+        //Send mail if book is reserved
+        $book = $lentBook->book;
+        if ($book->status === 'reserved' && $book->reservedBook) {
+            Mail::to($book->reservedBook->user->email)->send(new ReservedBookReturned($book, $book->reservedBook->user));
+        }
 
         return back()->with('success', 'Boek succesvol ingeleverd!');
     }
