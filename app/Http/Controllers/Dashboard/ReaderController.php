@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\StoreReaderRequest;
 use App\Http\Requests\UpdateReaderRequest;
 use App\Models\User;
@@ -12,9 +11,18 @@ use Illuminate\Support\Facades\Hash;
 
 class ReaderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::role('Lezer')->withWhereHas('reader')->with('subscription.subscriptionPlan')->paginate(10);
+        $request->validate([
+            'query' => ['nullable', 'string', 'max:255']
+        ]);
+
+        $users = User::role('Lezer')
+            ->withWhereHas('reader')
+            ->with('subscription.subscriptionPlan')
+            ->search($request->input('query'))
+            ->paginate(10)
+            ->withQueryString();
 
         return view('pages.dashboard.readers.index', compact('users'));
     }

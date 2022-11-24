@@ -48,4 +48,15 @@ class User extends Authenticatable
     {
         return $this->hasOne(Subscription::class)->whereDate('ends_at', '>=', today());
     }
+
+    public function scopeSearch($query, $searchTerm)
+    {
+        if (!empty($searchTerm)) {
+            return $query
+                ->where('name', 'LIKE', '%' . $searchTerm . '%')
+                ->orWhere('email', 'LIKE', '%' . $searchTerm . '%');
+        }
+
+        return $query;
+    }
 }

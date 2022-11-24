@@ -1,11 +1,25 @@
 <x-app-layout>
     <div class="py-12">
         <x-card class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6 lg:py-8">
-            <div class="flex items-center justify-between mb-7">
+            <!-- Breadcrumb -->
+            <div class="mb-5">
                 <h1 class="text-2xl font-semibold">
                     <a href="{{ route('dashboard') }}" class="underline">Dashboard</a> /
                     Lezer gegevens
                 </h1>
+            </div>
+
+            <!-- Search field & create button -->
+            <div class="mb-4 flex flex-col sm:flex-row gap-4 justify-between">
+                <form class="flex space-x-2" action="{{ route('dashboard.readers.index') }}" method="GET">
+                    <x-text-input type="search" name="query" class="block w-96"
+                                  placeholder="Zoek op naam of e-mailadres"
+                                  value="{{ request('query') }}"/>
+                    <x-buttons.primary-button class="inline-flex justify-center items-center">
+                        <span class="material-symbols-outlined -mx-2">search</span>
+                    </x-buttons.primary-button>
+                </form>
+
                 <a href="{{ route('dashboard.readers.create') }}" class="whitespace-nowrap">
                     <x-buttons.green-button>
                         Nieuwe lezer
@@ -13,6 +27,7 @@
                 </a>
             </div>
 
+            <!-- All readers -->
             <x-responsive-table>
                 <table class="table-auto w-full">
                     <thead class="text-left text-sm text-gray font-semibold uppercase bg-table-row">
@@ -52,6 +67,7 @@
                 </table>
             </x-responsive-table>
 
+            <!-- Pagination -->
             <div class="mt-6">
                 {{ $users->links() }}
             </div>
