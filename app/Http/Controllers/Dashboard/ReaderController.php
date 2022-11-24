@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReaderRequest;
 use App\Http\Requests\UpdateReaderRequest;
+use App\Models\LentBook;
+use App\Models\ReservedBook;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -50,6 +52,39 @@ class ReaderController extends Controller
         $user->assignRole('Lezer');
 
         return redirect()->route('dashboard.readers.index')->with('success', 'Lezer succesvol aangemaakt!');
+    }
+
+    public function show(User $user)
+    {
+        // Load reader info
+        $user->load('reader');
+
+        // Get fines
+        $lentBooks = LentBook::whereUserId($user->id)
+            ->whereNull('returned_at')
+            ->get()
+            ->map(function ($lentBook) {
+                // Difference between lent_until and today
+                $diff = $lentBook->days_overdue;
+                // Difference * fine amount
+                $lentBook->fine = $diff > 0 ? $diff * 0.50 : 0.00;
+
+                return $lentBook;
+            });
+        $fines = $lentBooks->sum('fine');
+
+        // Lent books
+        $lentBooks = LentBook::whereUserId($user->id)->with('book')
+            ->whereNull('returned_at')
+            ->orderByDesc('lent_at')
+            ->paginate(10, ['*'], 'lent-books');
+
+        // Reserved books
+        $reservedBooks = ReservedBook::whereUserId($user->id)->with('book')
+            ->latest()
+            ->paginate(10, ['*'], 'reserverd-books');
+
+        return view('pages.dashboard.readers.show', compact('user', 'fines', 'lentBooks', 'reservedBooks'));
     }
 
     public function edit(User $user)

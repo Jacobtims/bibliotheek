@@ -46,7 +46,7 @@
                             <td class="py-4 px-5">{{ $user->subscription ? $user->subscription->subscriptionPlan->name : 'Geen' }}</td>
                             <td class="py-4 pr-5">
                                 <div class="flex items-center justify-end space-x-1">
-                                    <a href="#">
+                                    <a href="{{ route('dashboard.readers.show', $user->id) }}">
                                         <span class="material-symbols-outlined mt-1.5 -mb-1">visibility</span>
                                     </a>
                                     <a href="{{ route('dashboard.readers.edit', $user->id) }}">
