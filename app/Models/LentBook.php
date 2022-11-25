@@ -25,6 +25,11 @@ class LentBook extends Model
         return $this->belongsTo(Book::class);
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     protected function daysOverdue(): Attribute
     {
         return Attribute::make(

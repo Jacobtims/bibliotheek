@@ -23,6 +23,7 @@
         .font-bold {font-weight:700}
         .text-primary-dark {--tw-text-opacity: 1;color:rgb(6 182 212 / var(--tw-text-opacity))}
         .mb-8 {margin-bottom: 2rem;}
+        .text-red {color: #EE4040;}
 
         /*md*/
         @media (min-width: 768px) {
