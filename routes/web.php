@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
-
 Route::get('/books', [\App\Http\Controllers\BookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [\App\Http\Controllers\BookController::class, 'show'])->name('books.show');
 
@@ -25,14 +24,17 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
     Route::middleware('role:Lezer')->group(function () {
         Route::post('/books/reserve/{book}', [\App\Http\Controllers\BookController::class, 'reserve'])->name('books.reserve');
         Route::post('/books/cancel-reservation/{book}', [\App\Http\Controllers\BookController::class, 'cancelReservation'])->name('books.cancel-reservation');
-        Route::get('/dashboard/books/lent-out', [\App\Http\Controllers\BookController::class, 'lentOut'])->name('dashboard.books.lent-out');
-        Route::post('/dashboard/books/extend/{book}', [\App\Http\Controllers\BookController::class, 'extend'])->name('dashboard.books.extend');
-        Route::get('/dashboard/fines', [\App\Http\Controllers\Dashboard\FineController::class, 'index'])->name('dashboard.fines.index');
     });
 
     Route::get('/dashboard', \App\Http\Controllers\Dashboard\DashboardController::class)->name('dashboard');
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::middleware('role:Lezer')->group(function () {
+            Route::get('/books/lent-out', [\App\Http\Controllers\BookController::class, 'lentOut'])->name('books.lent-out');
+            Route::post('/books/extend/{book}', [\App\Http\Controllers\BookController::class, 'extend'])->name('books.extend');
+            Route::get('/fines', [\App\Http\Controllers\Dashboard\FineController::class, 'index'])->name('fines.index');
+        });
+
         Route::middleware('role:Personeel')->group(function () {
             Route::get('/lend-out', [\App\Http\Controllers\Dashboard\BookController::class, 'lendOut'])->name('lend-out');
             Route::post('/lend-out', [\App\Http\Controllers\Dashboard\BookController::class, 'lendOutBook'])->name('lend-out-book');
@@ -42,6 +44,7 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
             Route::post('/return', [\App\Http\Controllers\Dashboard\BookController::class, 'returnBook'])->name('return-book');
             Route::resource('readers', \App\Http\Controllers\Dashboard\ReaderController::class)->parameters(['readers' => 'user']);
         });
+
         Route::middleware('role:Admin')->group(function () {
             Route::resource('employees', \App\Http\Controllers\Dashboard\EmployeeController::class)->parameters(['employees' => 'user'])->except('show');
             Route::resource('books', \App\Http\Controllers\Dashboard\BookController::class)->except('show');
