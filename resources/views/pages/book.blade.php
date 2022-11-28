@@ -27,7 +27,11 @@
                         </tbody>
                     </table>
 
-                    @if((!auth()->check() || !$book->isReservedBy(auth()->user())) && !$book->isLentBy(auth()->user()))
+                    @if(!auth()->check())
+                        <x-buttons.primary-button disabled>
+                            Reserveer
+                        </x-buttons.primary-button>
+                    @elseif(!$book->isReservedBy(auth()->user()) && !$book->isLentBy(auth()->user()))
                         <form action="{{ route('books.reserve', $book->id) }}" method="POST">
                             @csrf
                             <x-buttons.primary-button>
@@ -38,7 +42,7 @@
                         <x-buttons.primary-button disabled>
                             Je hebt dit boek uitgeleend
                         </x-buttons.primary-button>
-                    @elseif(auth()->check() && $book->isReservedBy(auth()->user()))
+                    @elseif($book->isReservedBy(auth()->user()))
                         <form action="{{ route('books.cancel-reservation', $book->id) }}" method="POST">
                             @csrf
                             <x-buttons.gray-button>
