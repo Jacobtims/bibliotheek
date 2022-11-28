@@ -107,16 +107,28 @@ class BookController extends Controller
             'book_id' => ['required', 'exists:books,id']
         ]);
 
+        // Check if book is already lent out
+        $book = Book::findOrFail($request->book_id);
+        if ($book->lentBook()->exists()) {
+            return back()->with('error', 'Dit boek is al uitgeleend!');
+        }
+
         $user = User::findOrFail($request->user_id);
         // Check if user has a subscription
         if (!$user->subscription()->exists()) {
             return back()->with('error', 'Deze lezer heeft geen abonnement!');
         }
+
         // Check if user lent max books
         $userLentBooksCount = $user->lentBooks->count();
         $userSubscriptionBooksCount = $user->subscription?->subscriptionPlan->books;
         if ($userLentBooksCount >= $userSubscriptionBooksCount) {
             return back()->with('error', 'Deze lezer heeft de maximale aantal van ' . $user->subscription->subscriptionPlan->books . ' boeken geleend!');
+        }
+
+        // Check if reserved
+        if ($book->reservedBook()->exists() && $book->reservedBook->user_id !== $user->id) {
+            return back()->with('error', 'Dit boek is gereserveerd door ' . $book->reservedBook->user->name . '!');
         }
 
         // Create lent book record
@@ -125,6 +137,9 @@ class BookController extends Controller
             'book_id' => $request->book_id,
             'lent_at' => now()
         ]);
+
+        // Clear reservations
+        $book->reservedBook->delete();
 
         return back()->with('success', 'Boek succesvol uitgeleend (' . $userLentBooksCount + 1 . '/' . $userSubscriptionBooksCount . ' boeken)');
     }
