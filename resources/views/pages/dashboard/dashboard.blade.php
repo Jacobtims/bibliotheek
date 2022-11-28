@@ -33,7 +33,7 @@
         <!-- Notifications -->
         <section class="md:w-1/3">
             <x-card>
-                <h1 class="text-xl font-semibold mb-3">Notifications</h1>
+                <h1 class="text-xl font-semibold mb-3">Notificaties</h1>
 
                 <div class="space-y-4">
                     @forelse($notifications as $notification)
